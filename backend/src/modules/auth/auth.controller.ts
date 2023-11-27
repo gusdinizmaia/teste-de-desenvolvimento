@@ -1,6 +1,5 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './local-auth.guard';
 import { LoginDTO } from './dtos/login.dto';
 import { ApiTags } from '@nestjs/swagger';
 
