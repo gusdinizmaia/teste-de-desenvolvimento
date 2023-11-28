@@ -10,14 +10,14 @@ import { plainToInstance } from 'class-transformer';
 export class TasksPrismaRepository implements TasksRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateTaskDto): Promise<Task> {
+  async create(data: CreateTaskDto, userId: string): Promise<Task> {
     const task = new Task();
-    Object.assign(Task, {
+    Object.assign(task, {
       ...data
     });
 
     const newTask = await this.prisma.task.create({
-      data: { ...task}
+      data: { ...task, userId}
     });
 
     return plainToInstance(Task, newTask);

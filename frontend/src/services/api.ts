@@ -13,10 +13,12 @@ export class DataService {
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => res.json())
-      .then((res) => res.results)
+      .then(res => {
+          localStorage.setItem('token',res.token)
+          return res})
       .catch((err) => console.log(err));
 
-    return data;
+      return data;
   };
 
   createUser = (): Promise<iTask[]> => {
@@ -34,7 +36,10 @@ export class DataService {
   getUser = (userId : number): Promise<iTask[]> => {
     const data = fetch(`${api.baseUrl}/users/${userId}`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+      },
     })
       .then((res) => res.json())
       .then((res) => res.results)
@@ -46,7 +51,10 @@ export class DataService {
   getAllTasks = (): Promise<iTask[]> => {
     const data = fetch(`${api.baseUrl}/tasks`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
     })
       .then((res) => res.json())
       .then((res) => res.results)
@@ -59,7 +67,10 @@ export class DataService {
     const data = fetch(`${api.baseUrl}/tasks`, {
       body:task,
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));
@@ -70,7 +81,10 @@ export class DataService {
   getTask = (taskId: number): Promise<iTask> => {
     const data = fetch(`${api.baseUrl}/tasks/${taskId}`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));
@@ -82,7 +96,10 @@ export class DataService {
     const data = fetch(`${api.baseUrl}/tasks/${taskId}`, {
       body:taskData,
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));
@@ -93,7 +110,10 @@ export class DataService {
   deleteTask = (taskId: number): Promise<iTask> => {
     const data = fetch(`${api.baseUrl}/tasks/${taskId}`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));
