@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksRepository } from './repositories/tasks.repository';
@@ -7,29 +7,35 @@ import { TasksRepository } from './repositories/tasks.repository';
 export class TasksService {
   constructor(private tasksRepository: TasksRepository) {}
 
- async create(createTaskDto: CreateTaskDto) {
-    // const findTask = await this.tasksRepository.findByEmail(
-    //   createTaskDto.email,
-    // );
-    // if (findTask) {
-    //   throw new ConflictException('Task already exists');
-    // }
-    const Task = await this.tasksRepository.create(createTaskDto);
+ async create(createTaskDto: CreateTaskDto, userId: string) {
 
-    return Task;
+    return this.tasksRepository.create(createTaskDto, userId);
   }
 
   async findOne(taskId: string) {
-    const task = await this.tasksRepository.findOne(taskId);
-    return task;
+    const findTask = await this.tasksRepository.findOne(taskId);
+    if (!findTask) {
+      throw new NotFoundException('Task not found');
+    }
+
+    return findTask;
   }
 
   async update(taskId: string, updateTaskDto: UpdateTaskDto) {
-    const task = await this.tasksRepository.update(taskId, updateTaskDto);
-    return task;
+    const findTask = await this.tasksRepository.findOne(taskId);
+    if (!findTask) {
+      throw new NotFoundException('Task not found');
+    }    
+    
+    return this.tasksRepository.update(taskId, updateTaskDto);
   }
 
   async remove(taskId: string) {
+    const findTask = await this.tasksRepository.findOne(taskId);
+    if (!findTask) {
+      throw new NotFoundException('Task not found');
+    }   
+
     await this.tasksRepository.delete(taskId);
     return;
   }
