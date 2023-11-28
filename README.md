@@ -1,6 +1,6 @@
 # teste-de-desenvolvimento
 
-Utilizando o comando <code>npm run start:dev</code> vai rodar como padrão na porta localhost:3000, utilizando o end point localhost:3000/api você tem acesso a todos os end points e suas informações.
+Utilizando o comando <code>npm run start:dev</code> dentro da pasta <code>backend</code> vai rodar como padrão na porta localhost:3000, utilizando o end point localhost:3000/api você tem acesso a todos os end points e suas informações.
 
 os endpoint são: <br/>
 <br/>
