@@ -1,0 +1,14 @@
+
+<div class="flex flex-col gap-6 ">
+    <h2 class="text-4xl">Welcome to Prozant</h2>
+    <p class="text-2xl">Aqui você pode criar suas listas de tarefas entre outros, basta se cadastrar</p>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5 p-4 border-gray-500 border-2 rounded-3xl w-80" >
+        <label for="name">Nome</label>
+        <input type="text" name="name" id="name" formControlName="username">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" formControlName="email">
+        <label for="password">Senha</label>
+        <input type="password" name="password" id="password" formControlName="password">
+        <button type="submit" >Enviar</button>
+    </form>
+</div>
