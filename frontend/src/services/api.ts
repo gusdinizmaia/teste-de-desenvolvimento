@@ -7,12 +7,14 @@ import { iTask } from '../types';
 })
 export class DataService {
 
-  loginUser = (): Promise<iTask[]> => {
+  loginUser = (user: any): Promise<iTask[]> => {
     const data = fetch(`${api.baseUrl}/login`, {
-      method: 'GET',
+      body:JSON.stringify(user),
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => res.json())
+
       .then(res => {
           localStorage.setItem('token',res.token)
           return res})
@@ -21,8 +23,9 @@ export class DataService {
       return data;
   };
 
-  createUser = (): Promise<iTask[]> => {
+  createUser = (user: any): Promise<iTask[]> => {
     const data = fetch(`${api.baseUrl}/users`, {
+      body:JSON.stringify(user),
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
