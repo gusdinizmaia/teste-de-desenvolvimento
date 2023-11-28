@@ -24,4 +24,5 @@ export class FormLoginComponent {
     console.log(this.userForm.value)
     this.api
         .loginUser(this.userForm.value).then(res => this.router.navigate(['/dashboard']))
-  }}
+  }
+}

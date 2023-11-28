@@ -23,12 +23,22 @@ export class TasksPrismaRepository implements TasksRepository {
     return plainToInstance(Task, newTask);
   }
 
+  async findAll(userId: string): Promise<Task[]> {
+    const tasks = await this.prisma.task.findMany({
+      where: { userId: userId }
+    });
+
+    return tasks.map(elem => plainToInstance(Task, elem))
+  }
+
   async findOne(TaskId: string): Promise<Task> {
-    const task = await this.prisma.task.findUnique({
+    const tasks = await this.prisma.task.findUnique({
       where: { id: TaskId }
     });
 
-    return plainToInstance(Task, task);
+    console.log(tasks)
+
+    return plainToInstance(Task, tasks);
   }
 
   async update(id: string, data: UpdateTaskDto): Promise<Task> {
