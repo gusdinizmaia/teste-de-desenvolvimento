@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { DataService } from '../../../services/api';
 
 @Component({
   selector: 'app-form-login',
@@ -17,9 +18,11 @@ export class FormLoginComponent {
     password: ['', Validators.required]
   })
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private api: DataService) {}
 
   onSubmit() {
-    console.warn(this.userForm.value);
+    this.api
+        .createUser(this.userForm)
+        .then(res => console.log(res))
   }
 }
