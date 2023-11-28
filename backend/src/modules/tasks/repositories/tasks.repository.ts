@@ -5,8 +5,9 @@ import {Task} from "../entities/task.entity"
 export abstract class TasksRepository{
 
     abstract create(data:CreateTaskDto, userId: string): Promise<Task> | Task;
+    abstract findAll(userId: string): Promise<Task[]> | Task[];
     abstract findOne(taskId: string): Promise<Task> | Task;
-    abstract update(id: string, data: UpdateTaskDto): Promise<Task> | Task;
-    abstract delete(id: string): Promise<void> | void;
+    abstract update(taskId: string, data: UpdateTaskDto): Promise<Task> | Task;
+    abstract delete(taskId: string): Promise<void> | void;
 
 }

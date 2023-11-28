@@ -12,7 +12,7 @@ import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 export class FormRegisterTaskComponent {
 
   userForm = this.formBuilder.group({
-    username: ['', Validators.required],
+    name: ['', Validators.required],
     email: ['', Validators.required],
     password: ['', Validators.required]
   })

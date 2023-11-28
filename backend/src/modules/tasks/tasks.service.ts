@@ -12,6 +12,11 @@ export class TasksService {
     return this.tasksRepository.create(createTaskDto, userId);
   }
 
+  async findAll(userId: string) {
+
+    return this.tasksRepository.findAll(userId);
+  }
+
   async findOne(taskId: string) {
     const findTask = await this.tasksRepository.findOne(taskId);
     if (!findTask) {

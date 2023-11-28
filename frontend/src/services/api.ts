@@ -26,11 +26,11 @@ export class DataService {
   createUser = (user: any): Promise<iTask[]> => {
     const data = fetch(`${api.baseUrl}/users`, {
       body:JSON.stringify(user),
-      method: 'GET',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => res.json())
-      .then((res) => res.results)
+      .then((res) => res)
       .catch((err) => console.log(err));
 
     return data;
@@ -51,7 +51,7 @@ export class DataService {
     return data;
   };
 
-  getAllTasks = (): Promise<iTask[]> => {
+  getAllTasks = (): Promise<iTask[] | any> => {
     const data = fetch(`${api.baseUrl}/tasks`, {
       method: 'GET',
       headers: { 
@@ -60,7 +60,7 @@ export class DataService {
       }
     })
       .then((res) => res.json())
-      .then((res) => res.results)
+      .then((res) => res)
       .catch((err) => console.log(err));
 
     return data;
@@ -68,7 +68,7 @@ export class DataService {
 
   createTask = (task: any): Promise<iTask> => {
     const data = fetch(`${api.baseUrl}/tasks`, {
-      body:task,
+      body:JSON.stringify(task),
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -95,9 +95,9 @@ export class DataService {
     return data;
   };
 
-  editTask = (taskData:any, taskId: number): Promise<iTask> => {
+  editTask = (taskData:any, taskId: string): Promise<iTask> => {
     const data = fetch(`${api.baseUrl}/tasks/${taskId}`, {
-      body:taskData,
+      body:JSON.stringify(taskData),
       method: 'PATCH',
       headers: { 
         'Content-Type': 'application/json',
@@ -105,12 +105,13 @@ export class DataService {
       }
     })
       .then((res) => res.json())
+      .then(res => res)
       .catch((err) => console.log(err));
 
     return data;
   };
 
-  deleteTask = (taskId: number): Promise<iTask> => {
+  deleteTask = (taskId: string): Promise<iTask> => {
     const data = fetch(`${api.baseUrl}/tasks/${taskId}`, {
       method: 'DELETE',
       headers: { 

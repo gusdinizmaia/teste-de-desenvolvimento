@@ -4,16 +4,16 @@ import { Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from '../../../services/api';
 
 @Component({
-  selector: 'app-form-login',
+  selector: 'app-form-register',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule , NgFor],
-  templateUrl: './form-login.component.html',
-  styleUrl: './form-login.component.css'
+  templateUrl: './form-register.component.html',
+  styleUrl: './form-register.component.css'
 })
-export class FormLoginComponent {
+export class FormRegisterComponent {
 
   userForm = this.formBuilder.group({
-    username: ['', Validators.required],
+    name: ['', Validators.required],
     email: ['', Validators.required],
     password: ['', Validators.required]
   })
@@ -22,7 +22,7 @@ export class FormLoginComponent {
 
   onSubmit() {
     this.api
-        .createUser(this.userForm)
+        .createUser(this.userForm.value)
         .then(res => console.log(res))
   }
 }

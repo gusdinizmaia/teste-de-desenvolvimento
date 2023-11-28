@@ -16,6 +16,13 @@ export class TasksController {
     return this.tasksService.create(createTaskDto, req.user.id);
   }
 
+  @Get('')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  findAll(@Request() req) {
+    return this.tasksService.findAll(req.user.id);
+  }
+
   @Get(':id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
