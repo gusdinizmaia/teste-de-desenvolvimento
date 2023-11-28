@@ -1,14 +1,38 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormLoginComponent } from '../../components/form-login/form-login.component';
+import {iTask} from '../../../types'
+import { DataService } from '../../../services/api';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormLoginComponent],
+  imports: [CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
+
 export class DashboardComponent {
-  tasks = [{title:'lavar a casa', description:"com pano"},{title:'arruma a cama', description:"com pano"},{title:'tirar o lixo', description:"com pano"}]
+  tasks = [] as iTask[]
+
+  taskSelected : iTask = {title:'', description:""}
+
+  constructor(private api: DataService) {}
+
+  ngOnInit(): void {
+      this.api
+        .getAllTasks()
+        .then(res => this.tasks = res)
+        .then((res) => console.log(res));
+  }
+
+  onSelected(task : iTask){
+    this.taskSelected = task
+  }
+
+  editTask(){
+    console.log('editando')
+  }
+  deleteTask(){
+    console.log('excluindo')
+  }
 }
