@@ -1,0 +1,16 @@
+<ng-container *ngIf="mostrar">
+    <div class="modal">
+      <div>
+        Edição de tarefa
+        <form [formGroup]="createForm" (ngSubmit)="createTask()" class="h-[400px] w-[400px] flex flex-col items-start gap-4 p-4 border-gray-500 border-2 rounded-2xl relative">
+            <div class="border-gray-500 border-b-2 w-[100%] h-[32px]">
+                <input class="text-2xl text-center w-[100%]" formControlName="title" />
+            </div>
+            <textarea class="w-[100%] h-[100%]" formControlName="description" ></textarea>
+            <button type="submit">Criar Tarefa</button>
+        </form>
+      </div>
+    </div>
+    <div (click)="toggle()"
+         class="overlay">Cancelar</div>
+</ng-container>

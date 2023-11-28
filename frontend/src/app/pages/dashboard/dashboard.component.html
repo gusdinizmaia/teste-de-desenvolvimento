@@ -1,0 +1,28 @@
+<main class="px-[5%] flex flex-row items-start gap-5">
+    <section class="h-[400px] flex flex-col items-start gap-4 p-4 border-gray-500 border-2 rounded-2xl relative">
+        <div class="border-gray-500 border-b-2 ">
+            <h3 class="text-2xl" >Lista de tarefas</h3>
+        </div>
+        <ul class="flex flex-col gap-2 ml-2" >
+            <li class="cursor-pointer" *ngFor="let task of tasks" (click)='onSelected(task)' >{{task.title}}</li>
+        </ul>
+        <button (click)='createModal.toggle()' class="bg-green-500 px-2 py-[2px] absolute bottom-2 right-8 text-center text-white">Adicionar tarefa</button>
+    </section>
+    <section class="h-[100%] flex justify-center items-center">
+    </section>
+
+    <section class="h-[400px] w-[400px] flex flex-col items-start gap-4 p-4 border-gray-500 border-2 rounded-2xl relative">
+        <div class="border-gray-500 border-b-2 w-[100%] h-[32px]">
+            <h3 class="text-2xl text-center w-[100%]" >{{taskSelected.title}}</h3>
+        </div>
+        <p>{{taskSelected.description}}</p>
+        <div *ngIf='taskSelected.title' class="flex absolute bottom-1 right-2 gap-2">
+            <p class="cursor-pointer " (click)='editModal.toggle(taskSelected)' >editar</p>
+            <p class="cursor-pointer text-red-500" (click)='deleteTask(taskSelected)' >excluir</p>
+        </div>
+    </section>
+    <section class="h-[100%] flex justify-center items-center">
+    </section>
+    <app-modal-edit #editModal/>
+    <app-modal-create #createModal/>
+</main>
